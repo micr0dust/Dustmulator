@@ -1,0 +1,96 @@
+<html lang="zh-hant">
+
+<head>
+    <title>網頁模擬器</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha256-4+XzXVhsDmqanXGHaHvgh1gMQKX40OUvDEBTu8JcmNs=" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+</head>
+
+<body>
+    <style>
+        #chatbox {
+            z-index: 100;
+            position: relative;
+        }
+
+        nav {
+            z-index: 1;
+            position: relative;
+        }
+    </style>
+    <br><br>
+    <iframe src="" id="iframe" frameborder="no" scrolling="no" width="70%" height="90%"></iframe>
+    <nav class="navbar navbar-expand-sm bg-dark navbar-dark fixed-top">
+
+        <!-- Links -->
+        <ul class="navbar-nav flex-nav">
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+                    ☰
+                </a>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" href="javascript:void(0)">設定</a>
+                    <a class="dropdown-item" href="javascript:void(0)">關於</a>
+                    <a id="boxctrl" class="dropdown-item" href="javascript:void(0)"
+                        onclick="chatbox(chatboxence)">關閉聊天室</a>
+                </div>
+            </li>
+        </ul>
+        <a class="navbar-brand ml-auto" href="#">Dustmulator</a>
+
+    </nav>
+    <nav class="navbar navbar-expand-sm bg-dark navbar-dark fixed-bottom">
+
+        <!-- Links -->
+        <ul class="navbar-nav flex-nav">
+            <li class="nav-item">
+                <a class="nav-link" href="#">☰</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="javascript:void(0)" onclick="chgFrame('apps.html');">☖</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="javascript:void(0)" onclick="history.go(-1);">❰❰</a>
+            </li>
+        </ul>
+
+    </nav>
+    <iframe src="https://mydustchat.herokuapp.com/" id="chatbox" frameborder="no" scrolling="yes" align="right"
+        width="30%" height="89%"></iframe>
+
+    <script>
+        let chatboxence = true;
+        chgFrame("apps.html");
+        function chgFrame(url) {
+            var o = document.getElementById('iframe');
+            o.src = url;
+            // o.contentWindow.location.href=url;
+            //frames[1].location.href=url;
+        }
+        function chatbox(type) {
+            if (type) {
+                document.getElementById('iframe').style.width = '100%';
+                document.getElementById('chatbox').style.width = '0%';
+                document.getElementById('boxctrl').innerHTML = "開啟聊天室";
+                chatboxence = false;
+            } else {
+                document.getElementById('iframe').style.width = '70%';
+                document.getElementById('chatbox').style.width = '30%';
+                document.getElementById('boxctrl').innerHTML = "關閉聊天室";
+                chatboxence = true;
+            }
+        }
+        function execute(apps) {
+            if (apps === 1) return chgFrame("https://wuilliam104286.github.io/SuperTNT_web_version/");
+            if (apps === 2) return chgFrame("https://wuilliam104286.github.io/SuperTNT-random-TNT-mode/");
+            if (apps === 3) return chgFrame("https://wuilliam104286.github.io/SuperTNT_Dance_Game/");
+            if (apps === 4) return chgFrame("https://wuilliam104286.github.io/SuperTNT_story_mode/");
+        }
+    </script>
+</body>
+
+</html>
