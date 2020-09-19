@@ -21,9 +21,12 @@
             z-index: 1;
             position: relative;
         }
+
+        iframe {
+            margin-top: 3%;
+        }
     </style>
-    <br><br>
-    <iframe src="" id="iframe" frameborder="no" scrolling="no" width="70%" height="90%"></iframe>
+    <iframe src="" id="iframe" frameborder="no" scrolling="no" width="100%" height="90%"></iframe>
     <nav class="navbar navbar-expand-sm bg-dark navbar-dark fixed-top">
 
         <!-- Links -->
@@ -33,17 +36,17 @@
                     ☰
                 </a>
                 <div class="dropdown-menu">
-                    <a class="dropdown-item" href="javascript:void(0)">設定</a>
+                    <a class="dropdown-item" href="javascript:void(0)" onclick="chgFrame('setting.html')">設定</a>
                     <a class="dropdown-item" href="javascript:void(0)">關於</a>
                     <a id="boxctrl" class="dropdown-item" href="javascript:void(0)"
                         onclick="chatbox(chatboxence)">關閉聊天室</a>
                 </div>
             </li>
         </ul>
-        <a class="navbar-brand ml-auto" href="#">Dustmulator</a>
+        <a class="navbar-brand ml-auto" href="javascript:void(0)">Dustmulator</a>
 
     </nav>
-    <nav class="navbar navbar-expand-sm bg-dark navbar-dark fixed-bottom">
+    <nav class="navbar navbar-expand-sm bg-dark navbar-dark fixed-bottom d-none d-md-block">
 
         <!-- Links -->
         <ul class="navbar-nav flex-nav">
@@ -60,7 +63,7 @@
 
     </nav>
     <iframe src="https://mydustchat.herokuapp.com/" id="chatbox" frameborder="no" scrolling="yes" align="right"
-        width="30%" height="89%"></iframe>
+        width="0%" height="89%"></iframe>
 
     <script>
         let chatboxence = true;
@@ -78,8 +81,13 @@
                 document.getElementById('boxctrl').innerHTML = "開啟聊天室";
                 chatboxence = false;
             } else {
-                document.getElementById('iframe').style.width = '70%';
-                document.getElementById('chatbox').style.width = '30%';
+                if (!detectmob()&&!JSON.parse(window.localStorage.getItem('s2'))) {
+                    document.getElementById('iframe').style.width = '70%';
+                    document.getElementById('chatbox').style.width = '30%';
+                } else {
+                    document.getElementById('iframe').style.width = '0%';
+                    document.getElementById('chatbox').style.width = '100%';
+                }
                 document.getElementById('boxctrl').innerHTML = "關閉聊天室";
                 chatboxence = true;
             }
@@ -90,6 +98,30 @@
             if (apps === 3) return chgFrame("https://wuilliam104286.github.io/SuperTNT_Dance_Game/");
             if (apps === 4) return chgFrame("https://wuilliam104286.github.io/SuperTNT_story_mode/");
         }
+        //check mobile device
+        function detectmob() {
+            if (navigator.userAgent.match(/Android/i)
+                || navigator.userAgent.match(/webOS/i)
+                || navigator.userAgent.match(/iPhone/i)
+                || navigator.userAgent.match(/iPad/i)
+                || navigator.userAgent.match(/iPod/i)
+                || navigator.userAgent.match(/BlackBerry/i)
+                || navigator.userAgent.match(/Windows Phone/i)
+            ) {
+                if (window.DeviceOrientationEvent) {
+                    //可旋轉
+                }
+                return true;
+            }
+            else {
+                return false;
+            }
+        }
+        if (JSON.parse(window.localStorage.getItem('s1'))) chatbox(false);
+        if (!JSON.parse(window.localStorage.getItem('s1'))) chatbox(true);
+        if (!detectmob()&&!JSON.parse(window.localStorage.getItem('firstcome'))) chatbox(false);
+        if (detectmob()&&!JSON.parse(window.localStorage.getItem('firstcome'))) chatbox(true);
+        if (detectmob()) document.getElementById('iframe').style.height = '98%';
     </script>
 </body>
 

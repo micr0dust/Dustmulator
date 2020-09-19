@@ -1,0 +1,146 @@
+<html lang="zh-hant">
+
+<head>
+    <title>設定</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha256-4+XzXVhsDmqanXGHaHvgh1gMQKX40OUvDEBTu8JcmNs=" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+</head>
+
+<body class="bg-dark">
+    <style>
+        .custom-switch {
+            padding-left: 2.25rem;
+            padding-bottom: 1rem;
+        }
+
+        .custom-control-label {
+            padding-top: 0.5rem;
+            padding-left: 2rem;
+            padding-bottom: 0.1rem;
+        }
+
+        .custom-switch .custom-control-label::before {
+            left: -2.25rem;
+            height: 2rem;
+            width: 3.5rem;
+            pointer-events: all;
+            border-radius: 1rem;
+        }
+
+        .custom-switch .custom-control-label::after {
+            top: calc(0.25rem + 2px);
+            left: calc(-2.25rem + 2px);
+            width: calc(2rem - 4px);
+            height: calc(2rem - 4px);
+            background-color: #adb5bd;
+            border-radius: 2rem;
+            transition: background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out, -webkit-transform 0.15s ease-in-out;
+            transition: transform 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+            transition: transform 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out, -webkit-transform 0.15s ease-in-out;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .custom-switch .custom-control-label::after {
+                transition: none;
+            }
+        }
+
+        .custom-switch .custom-control-input:checked~.custom-control-label::after {
+            background-color: #fff;
+            -webkit-transform: translateX(1.5rem);
+            transform: translateX(1.5rem);
+        }
+    </style>
+    <div class="container-fluid">
+        <nav class="navbar navbar-expand-sm bg-dark navbar-dark pt-5">
+            <a class="navbar-brand" href="javascript:void(0)">設定</a>
+            <button class="btn navbar-brand ml-auto bg-primary text-white" onclick="Swal.fire({
+                title: '您要儲存設定嗎?',
+                showDenyButton: true,
+                showCancelButton: false,
+                confirmButtonText: '是',
+                denyButtonText: '否',
+              }).then((result) => {
+                /* Read more about isConfirmed, isDenied below */
+                if (result.isConfirmed) {
+                  Swal.fire('設定已儲存', '', 'success')
+                  let timerInterval
+                  Swal.fire({
+                    title: '儲存中',
+                    timer: 500,
+                    timerProgressBar: true,
+                    onBeforeOpen: () => {
+                        Swal.showLoading()
+                        timerInterval = setInterval(() => {
+                        const content = Swal.getContent()
+                        if (content) {
+                            const b = content.querySelector('b')
+                            if (b) {
+                            b.textContent = Swal.getTimerLeft()
+                            }
+                        }
+                        }, 100)
+                    },
+                    onClose: () => {
+                        clearInterval(timerInterval)
+                    }
+                    }).then((result) => {
+                    /* Read more about handling dismissals below */
+                    if (result.dismiss === Swal.DismissReason.timer) {
+                        console.log('I was closed by the timer')
+                    }
+                    })
+                  save();
+                }
+              })">儲存設定</button>
+        </nav>
+        <div class="card bg-dark text-white">
+            <div class="custom-control custom-switch pt-4">
+                <input type="checkbox" class="custom-control-input" id="switch1">
+                <label class="custom-control-label" for="switch1">聊天室在網頁開啟時自動啟動</label>
+            </div>
+            <div class="custom-control custom-switch pt-4  d-none d-md-block">
+                <input type="checkbox" class="custom-control-input" id="switch2">
+                <label class="custom-control-label" for="switch2">聊天室全屏顯示</label>
+            </div>
+        </div>
+    </div>
+    <script>
+        var set;
+        if (!JSON.parse(localStorage.getItem('firstcome'))) { defaultSet() } else { reloadForm() }
+        function save() {
+            console.log(document.getElementById('switch2').checked);
+            storage('s1', document.getElementById('switch1').checked);
+            storage('s2', document.getElementById('switch2').checked);
+            set.s1 = JSON.parse(localStorage.getItem('s1'));
+            set.s2 = JSON.parse(localStorage.getItem('s2'));
+            parent.save(set);
+            reloadForm();
+        }
+        function defaultSet() {
+            storage('firstcome', true);
+            if (parent.detectmob()) { storage('s1', false) };
+            if (!parent.detectmob()) storage('s1', true);
+            document.getElementById('switch2').checked = false;
+            storage('s2', false);
+            reloadForm();
+            set.s1 = JSON.parse(localStorage.getItem('s1'));
+            set.s2 = JSON.parse(localStorage.getItem('s2'));
+            parent.save(set);
+        }
+        function storage(storg, value) {
+            localStorage.setItem(storg, value);
+        }
+        function reloadForm() {
+            document.getElementById('switch1').checked = JSON.parse(localStorage.getItem('s1'));
+            document.getElementById('switch2').checked = JSON.parse(localStorage.getItem('s2'));
+        }
+    </script>
+</body>
+
+</html>
