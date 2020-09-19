@@ -62,6 +62,14 @@
         </ul>
 
     </nav>
+    <nav class="navbar navbar-expand-sm bg-dark navbar-dark fixed-bottom d-md-none">
+        <ul class="navbar-nav flex-nav">
+            <li class="nav-item">
+                <a class="nav-link" href="javascript:void(0)" onclick="chgFrame('apps.html');">☖</a>
+            </li>
+        </ul>
+
+    </nav>
     <iframe src="https://mydustchat.herokuapp.com/" id="chatbox" frameborder="no" scrolling="yes" align="right"
         width="0%" height="89%"></iframe>
 
@@ -81,7 +89,7 @@
                 document.getElementById('boxctrl').innerHTML = "開啟聊天室";
                 chatboxence = false;
             } else {
-                if (!detectmob()&&!JSON.parse(window.localStorage.getItem('s2'))) {
+                if (!detectmob() && !JSON.parse(window.localStorage.getItem('s2'))) {
                     document.getElementById('iframe').style.width = '70%';
                     document.getElementById('chatbox').style.width = '30%';
                 } else {
@@ -119,8 +127,8 @@
         }
         if (JSON.parse(window.localStorage.getItem('s1'))) chatbox(false);
         if (!JSON.parse(window.localStorage.getItem('s1'))) chatbox(true);
-        if (!detectmob()&&!JSON.parse(window.localStorage.getItem('firstcome'))) chatbox(false);
-        if (detectmob()&&!JSON.parse(window.localStorage.getItem('firstcome'))) chatbox(true);
+        if (!detectmob() && !JSON.parse(window.localStorage.getItem('firstcome'))) chatbox(false);
+        if (detectmob() && !JSON.parse(window.localStorage.getItem('firstcome'))) chatbox(true);
         if (detectmob()) document.getElementById('iframe').style.height = '98%';
     </script>
 </body>
