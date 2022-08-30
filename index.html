@@ -4,8 +4,7 @@
     <title>網頁模擬器</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
-        integrity="sha256-4+XzXVhsDmqanXGHaHvgh1gMQKX40OUvDEBTu8JcmNs=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha256-4+XzXVhsDmqanXGHaHvgh1gMQKX40OUvDEBTu8JcmNs=" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
 </head>
@@ -16,12 +15,12 @@
             z-index: 100;
             position: relative;
         }
-
+        
         nav {
             z-index: 1;
             position: relative;
         }
-
+        
         iframe {
             margin-top: 3%;
         }
@@ -38,8 +37,7 @@
                 <div class="dropdown-menu">
                     <a class="dropdown-item" href="javascript:void(0)" onclick="chgFrame('setting.html')">設定</a>
                     <a class="dropdown-item" href="javascript:void(0)">關於</a>
-                    <a id="boxctrl" class="dropdown-item" href="javascript:void(0)"
-                        onclick="chatbox(chatboxence)">關閉聊天室</a>
+                    <a id="boxctrl" class="dropdown-item" href="javascript:void(0)" onclick="chatbox(chatboxence)">關閉聊天室</a>
                 </div>
             </li>
         </ul>
@@ -70,18 +68,19 @@
         </ul>
 
     </nav>
-    <iframe src="https://mydustchat.herokuapp.com/" id="chatbox" frameborder="no" scrolling="yes" align="right"
-        width="0%" height="89%"></iframe>
+    <iframe src="https://mydustchat.herokuapp.com/" id="chatbox" frameborder="no" scrolling="yes" align="right" width="0%" height="89%"></iframe>
 
     <script>
         let chatboxence = true;
         chgFrame("apps.html");
+
         function chgFrame(url) {
             var o = document.getElementById('iframe');
             o.src = url;
             // o.contentWindow.location.href=url;
             //frames[1].location.href=url;
         }
+
         function chatbox(type) {
             if (type) {
                 document.getElementById('iframe').style.width = '100%';
@@ -100,28 +99,28 @@
                 chatboxence = true;
             }
         }
+
         function execute(apps) {
-            if (apps === 1) return chgFrame("https://wuilliam104286.github.io/SuperTNT_web_version/");
-            if (apps === 2) return chgFrame("https://wuilliam104286.github.io/SuperTNT-random-TNT-mode/");
-            if (apps === 3) return chgFrame("https://wuilliam104286.github.io/SuperTNT_Dance_Game/");
-            if (apps === 4) return chgFrame("https://wuilliam104286.github.io/SuperTNT_story_mode/");
+            if (apps === 1) return chgFrame("https://micr0dust.github.io/SuperTNT_web_version/");
+            if (apps === 2) return chgFrame("https://micr0dust.github.io/SuperTNT-random-TNT-mode/");
+            if (apps === 3) return chgFrame("https://micr0dust.github.io/SuperTNT_Dance_Game/");
+            if (apps === 4) return chgFrame("https://micr0dust.github.io/SuperTNT_story_mode/");
         }
         //check mobile device
         function detectmob() {
-            if (navigator.userAgent.match(/Android/i)
-                || navigator.userAgent.match(/webOS/i)
-                || navigator.userAgent.match(/iPhone/i)
-                || navigator.userAgent.match(/iPad/i)
-                || navigator.userAgent.match(/iPod/i)
-                || navigator.userAgent.match(/BlackBerry/i)
-                || navigator.userAgent.match(/Windows Phone/i)
+            if (navigator.userAgent.match(/Android/i) ||
+                navigator.userAgent.match(/webOS/i) ||
+                navigator.userAgent.match(/iPhone/i) ||
+                navigator.userAgent.match(/iPad/i) ||
+                navigator.userAgent.match(/iPod/i) ||
+                navigator.userAgent.match(/BlackBerry/i) ||
+                navigator.userAgent.match(/Windows Phone/i)
             ) {
                 if (window.DeviceOrientationEvent) {
                     //可旋轉
                 }
                 return true;
-            }
-            else {
+            } else {
                 return false;
             }
         }
